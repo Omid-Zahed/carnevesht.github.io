@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>کارنوشت ساز</title>
+    <script src="date.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-v4-rtl/4.6.0-3/css/bootstrap.min.css" integrity="sha512-hugT+JEQi0vXZbvspjv4x2M7ONBvsLR9IFTEQAYoUsmk7s1rRc2u7I6b4xa14af/wZ+Nw7Aspf3CtAfUOGyflA==" crossorigin="anonymous" referrerpolicy="no-referrer" /></head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-v4-rtl/4.6.0-3/css/bootstrap-reboot.min.css" integrity="sha512-wV3xzHEw4kJUF4G0fyXSefKmUVhwwbOdZinJvOxmysxAXSZBl17porgPOcQBDBQTEwgGevxXGWAAQ/UPaSd0nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-v4-rtl/4.6.0-3/css/bootstrap-rtl.min.css" integrity="sha512-oSy57agnmjGPHNqvoc5416Mn5+5+HnTxyddp6zmh7xLjvdHpLbhnBRfZVEbYp8NTF8BkG3lVQItN3GeiLdkdpg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-v4-rtl/4.6.0-3/js/bootstrap.min.js" integrity="sha512-EDPPkTvnl5ilwG33ygi/y7ph1tGHC9CTYOc3JHVRhAmlCkB6TGZoaJ88YI8E0XfRFNMr31sCWcimdRv8Bf5wFA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+<style>
+    body{
+        direction: rtl;
+        text-align: right;
+        font-family: Vazirmatn, sans-serif;
+    }
+</style>
+<body >
+<div id="app">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <textarea class="form-control mt-2 mb-5" rows="20">{{compute_text}}</textarea>
+            </div>
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">اطلاعت کارنوشت</h3>
+                    </div>
+
+                    <!--                    اضافه کردن جلسه-->
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="badge badge-primary p-2" for="">نام  و نام خانوادگی</label>
+                                    <input class="form-control" v-model="form_name" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="badge badge-primary p-2" for="">ساعت کار کرد</label>
+                                    <input class="form-control" v-model="form_spend_time" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="badge badge-primary p-2" for="">تاریخ</label>
+                                    <input v-model="time" class="form-control" />
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"> افزودن جلسه</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">عنوان</label>
+                                    <input v-model="meet_form_title" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">نتیجه یا توضیحات</label>
+                                    <textarea v-model="meet_form_description" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button @click="addmeet" class="btn btn-primary">افزودن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"> افزودن تسک</h5>
+                    </div>
+
+
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">عنوان</label>
+                                    <input v-model="task_form_title" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="">نتیجه یا توضیحات</label>
+                                    <textarea v-model="task_form_description" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" @click="addtask">افزودن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-3">v :0.0.1</div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="templates.js"></script>
+<script>
+
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    var form_name=getCookie("form_name")??""
+    var tarikh = new persianDate();
+    let time=tarikh.toLocale('en').format();
+    var app = new Vue({
+        el: '#app',
+        data: {
+            render_text:"",
+            time:time,
+            form_name: form_name,
+            form_spend_time: "",
+            task_form_title:"",
+            task_form_description:"",
+            meet_form_title:"",
+            meet_form_description:"",
+            tasks:[],
+            meetings:[],
+
+
+
+
+        },
+        methods:{
+
+            addtask:function(){
+                if (this.task_form_title==""){
+                    alert("عنوان تسک را وارد کنید")
+                    return;
+                }
+                this.tasks.push({
+                    title: this.task_form_title,
+                    description: this.task_form_description,
+                })
+                this.task_form_title="";
+                this.task_form_description="";
+
+            },
+            addmeet:function(){
+                if (this.meet_form_title=="") {
+                    alert("عنوان جلسه را وارد کنید")
+                    return;
+                }
+                this.meetings.push({
+                    title:this.meet_form_title,
+                    description:this.meet_form_description
+                });
+                this.meet_form_title="";
+                this.meet_form_description="";
+
+
+
+            },
+        },
+        computed: {
+            compute_text: function() {
+                setCookie("form_name", this.form_name, 3);
+                let result=template.replaceAll("{name}",this.form_name);
+                result=result.replaceAll("{time}",this.time);
+                result=result.replaceAll("{spend_time}",this.form_spend_time);
+                //generate tasks list
+                let tasks_list="";
+                for(let i=0;i<this.tasks.length;i++){
+                    tasks_list+="عنوان تسک : "+this.tasks[i].title+"\n";
+                    tasks_list+="توضیحات تسک : "+this.tasks[i].description+"\n";
+                    tasks_list+="--------------------------------------\n";
+                }
+                let meetings_list="";
+                for(let i=0;i<this.meetings.length;i++){
+                    meetings_list+="عنوان جلسه : "+this.meetings[i].title+"\n";
+                    meetings_list+="توضیحات جلسه : "+this.meetings[i].description+"\n";
+                    meetings_list+="--------------------------------------\n";
+                }
+                result=result.replaceAll("{tasks}",tasks_list);
+                result=result.replaceAll("{meetings}",meetings_list);
+
+
+                return result;
+
+            }
+        }
+    })
+</script>
+</html>
